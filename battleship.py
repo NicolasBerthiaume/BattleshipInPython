@@ -26,7 +26,7 @@ print("\n")
 for row in player_board:
     print(' '.join(row))
 
-def place_ship(board, ship, start, end, orientation):
+def place_ship(board, ship, start, orientation):
     
     start_row, start_col = start
 
