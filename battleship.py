@@ -80,7 +80,7 @@ print("How big do you want the board to be?")
 while True:
     try:
         boardsize = int(input("Enter a number between 5 and 10: "))
-        if 5 < boardsize < 10:
+        if 5 <= boardsize <= 10:
             break
         else:
             print("Invalid size. Please enter a number better 5 and 10.")
