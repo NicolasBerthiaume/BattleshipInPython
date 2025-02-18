@@ -56,6 +56,23 @@ def place_ship(board, ship, start, orientation):
         print("Invalid orientation.")
         return False
 
+def prompt_user_to_select_board_size():
+    print("How big do you want the board to be?")
+
+    while True:
+        try:
+            boardsize = int(input("Enter a number between 5 and 10: "))
+            if 5 <= boardsize <= 10:
+                break
+            else:
+                print("Invalid size. Please enter a number better 5 and 10.")
+        except ValueError:
+            ("Invalid input. Please enter a valid integer.")
+
+    print("You entered the number " + str(boardsize))
+
+    return boardsize
+
 def prompt_user_to_place_ship(ship):
     while True:
         print(f"\nPlace your {ship.name} (Size: {ship.size}):")
@@ -75,22 +92,10 @@ def prompt_user_to_place_ship(ship):
 
 print("\n")
 print("Welcome to Battleship, Player!")
-print("How big do you want the board to be?")
+print("\n")
 
-while True:
-    try:
-        boardsize = int(input("Enter a number between 5 and 10: "))
-        if 5 <= boardsize <= 10:
-            break
-        else:
-            print("Invalid size. Please enter a number better 5 and 10.")
-    except ValueError:
-        ("Invalid input. Please enter a valid integer.")
-
-print("You entered the number " + str(boardsize))
-
-CPU_board = create_grid(boardsize)
-player_board = create_grid(boardsize)
+CPU_board = create_grid(prompt_user_to_select_board_size())
+player_board = create_grid(len(CPU_board[0]))
 
 print("\n")
 print("Here is your board:")
