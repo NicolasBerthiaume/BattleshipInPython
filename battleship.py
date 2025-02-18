@@ -1,5 +1,5 @@
 def create_grid(gridsize):
-    return ['~' * gridsize for _ in range(gridsize)]
+    return [['~' for _ in range(gridsize)] for _ in range(gridsize)]
 
 class Ship():
     def __init__(self, size):
@@ -84,3 +84,49 @@ print("\n")
 for row in player_board:
     print(' '.join(row))
 
+print("\n")
+print("Now start placing your ships!")
+print("Start with the big ship (4 spaces).")    
+
+ship1_col = int(input("Which column will you place it on? "))
+ship1_row = int(input("WHich row will you place it on? "))
+ship1_orient = input("Will you place is horizontally (h) or vertically (v)? ").lower()
+
+place_ship(player_board, player_big_ship, (ship1_row, ship1_col), ship1_orient)
+
+print("\n")
+print("Here is your board:")
+print("\n")
+
+for row in player_board:
+    print(' '.join(row))
+
+print("\n")
+print("Now let's place the medium ship (3 spaces).")
+ship2_col = int(input("Which column will you place it on? "))
+ship2_row = int(input("WHich row will you place it on? "))
+ship2_orient = input("Will you place is horizontally (h) or vertically (v)? ").lower()
+
+place_ship(player_board, player_med_ship, (ship2_row, ship2_col), ship2_orient)
+
+print("\n")
+print("Here is your board:")
+print("\n")
+
+for row in player_board:
+    print(' '.join(row))
+
+print("\n")
+print("Now let's place the small ship (2 spaces).")
+ship3_col = int(input("Which column will you place it on? "))
+ship3_row = int(input("WHich row will you place it on? "))
+ship3_orient = input("Will you place is horizontally (h) or vertically (v)? ").lower()
+
+place_ship(player_board, player_small_ship, (ship3_row, ship3_col), ship3_orient)
+
+print("\n")
+print("Here is your board:")
+print("\n")
+
+for row in player_board:
+    print(' '.join(row))
