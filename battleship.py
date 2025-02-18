@@ -1,6 +1,10 @@
 def create_grid(gridsize):
     return [['~' for _ in range(gridsize)] for _ in range(gridsize)]
 
+def print_board(board):
+    for row in reversed(board):
+        print(' '.join(row))
+
 class Ship():
     def __init__(self, size):
         self.size = size
@@ -15,7 +19,7 @@ player_small_ship = Ship(2)
 
 def place_ship(board, ship, start, orientation):
     
-    start_row, start_col = start
+    start_row, start_col = start[0] -1, start[1] -1
 
     if orientation == 'h':
         if start_col + ship.size > len(board[0]):
@@ -74,8 +78,7 @@ print("\n")
 print("Here is your board:")
 print("\n")
 
-for row in player_board:
-    print(' '.join(row))
+print_board(player_board)
 
 print("\n")
 print("Now start placing your ships!")
@@ -91,8 +94,7 @@ print("\n")
 print("Here is your board:")
 print("\n")
 
-for row in player_board:
-    print(' '.join(row))
+print_board(player_board)
 
 print("\n")
 print("Now let's place the medium ship (3 spaces).")
@@ -106,8 +108,7 @@ print("\n")
 print("Here is your board:")
 print("\n")
 
-for row in player_board:
-    print(' '.join(row))
+print_board(player_board)
 
 print("\n")
 print("Now let's place the small ship (2 spaces).")
@@ -121,5 +122,4 @@ print("\n")
 print("Here is your board:")
 print("\n")
 
-for row in player_board:
-    print(' '.join(row))
+print_board(player_board)
