@@ -6,16 +6,17 @@ def print_board(board):
         print(' '.join(row))
 
 class Ship():
-    def __init__(self, size):
+    def __init__(self, name, size):
+        self.name = name
         self.size = size
 
-CPU_big_ship = Ship(4)
-CPU_med_ship = Ship(3)
-CPU_small_ship = Ship(2)
+CPU_big_ship = Ship("Big Ship", 4)
+CPU_med_ship = Ship("Medium Ship", 3)
+CPU_small_ship = Ship("Small Ship", 2)
 
-player_big_ship = Ship(4)
-player_med_ship = Ship(3)
-player_small_ship = Ship(2)
+player_big_ship = Ship("Big Ship", 4)
+player_med_ship = Ship("Medium Ship", 3)
+player_small_ship = Ship("Small Ship", 2)
 
 def place_ship(board, ship, start, orientation):
     
@@ -55,6 +56,23 @@ def place_ship(board, ship, start, orientation):
         print("Invalid orientation.")
         return False
 
+def prompt_user_to_place_ship(ship):
+    while True:
+        print(f"\nPlace your {ship.name} (Size: {ship.size}):")
+        ship_col = int(input(f"Which column will you place the {ship.name} on? "))
+        ship_row = int(input(f"Which row will you place the {ship.name} on? "))
+        ship_orient = input(f"Will you place your {ship.name} horizontally (h) or vertically (v)? ").lower()
+
+        if place_ship(player_board, ship, (ship_row, ship_col), ship_orient):
+            print(f"{ship.name} placed successfully!")
+            print("\n")
+            print_board(player_board)
+            break
+        else:
+            print(f"Invalid placement for {ship.name}. Try again.")
+
+# the game loop starts here
+
 print("\n")
 print("Welcome to Battleship, Player!")
 print("How big do you want the board to be?")
@@ -80,46 +98,6 @@ print("\n")
 
 print_board(player_board)
 
-print("\n")
-print("Now start placing your ships!")
-print("Start with the big ship (4 spaces).")    
-
-ship1_col = int(input("Which column will you place it on? "))
-ship1_row = int(input("WHich row will you place it on? "))
-ship1_orient = input("Will you place is horizontally (h) or vertically (v)? ").lower()
-
-place_ship(player_board, player_big_ship, (ship1_row, ship1_col), ship1_orient)
-
-print("\n")
-print("Here is your board:")
-print("\n")
-
-print_board(player_board)
-
-print("\n")
-print("Now let's place the medium ship (3 spaces).")
-ship2_col = int(input("Which column will you place it on? "))
-ship2_row = int(input("WHich row will you place it on? "))
-ship2_orient = input("Will you place is horizontally (h) or vertically (v)? ").lower()
-
-place_ship(player_board, player_med_ship, (ship2_row, ship2_col), ship2_orient)
-
-print("\n")
-print("Here is your board:")
-print("\n")
-
-print_board(player_board)
-
-print("\n")
-print("Now let's place the small ship (2 spaces).")
-ship3_col = int(input("Which column will you place it on? "))
-ship3_row = int(input("WHich row will you place it on? "))
-ship3_orient = input("Will you place is horizontally (h) or vertically (v)? ").lower()
-
-place_ship(player_board, player_small_ship, (ship3_row, ship3_col), ship3_orient)
-
-print("\n")
-print("Here is your board:")
-print("\n")
-
-print_board(player_board)
+prompt_user_to_place_ship(player_big_ship)
+prompt_user_to_place_ship(player_med_ship)
+prompt_user_to_place_ship(player_small_ship)
