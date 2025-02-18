@@ -51,13 +51,6 @@ def place_ship(board, ship, start, orientation):
         print("Invalid orientation.")
         return False
 
-size = 5
-board = create_grid(size)
-print(f'creating a {size}x{size} board')
-
-for row in board:
-    print(' '.join(row))
-
 print("\n")
 print("Welcome to Battleship, Player!")
 print("How big do you want the board to be?")
