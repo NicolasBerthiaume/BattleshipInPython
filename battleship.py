@@ -1,3 +1,5 @@
+import random
+
 def create_grid(gridsize):
     return [['~' for _ in range(gridsize)] for _ in range(gridsize)]
 
@@ -24,12 +26,10 @@ def place_ship(board, ship, start, orientation):
 
     if orientation == 'h':
         if start_col + ship.size > len(board[0]):
-            print("Ship cannot fit horizontally.")
             return False
     
         for col in range(start_col, start_col + ship.size):
             if board[start_row][col] != '~':
-                print("Space is already occupied.")
                 return False
         
         for col in range(start_col, start_col + ship.size):
@@ -39,12 +39,10 @@ def place_ship(board, ship, start, orientation):
 
     elif orientation == 'v':
         if start_row + ship.size > len(board[0]):
-            print("Ship cannot fit vertically.")
             return False
         
         for row in range(start_row, start_row + ship.size):
             if board[row][start_col] != '~':
-                print("Space is already occupied.")
                 return False
             
         for row in range(start_row, start_row + ship.size):
@@ -53,7 +51,6 @@ def place_ship(board, ship, start, orientation):
         return True
     
     else:
-        print("Invalid orientation.")
         return False
 
 def prompt_user_to_select_board_size():
@@ -73,20 +70,31 @@ def prompt_user_to_select_board_size():
 
     return boardsize
 
-def prompt_user_to_place_ship(ship):
+def prompt_user_to_place_ship(board, ship):
     while True:
         print(f"\nPlace your {ship.name} (Size: {ship.size}):")
         ship_col = int(input(f"Which column will you place the {ship.name} on? "))
         ship_row = int(input(f"Which row will you place the {ship.name} on? "))
         ship_orient = input(f"Will you place your {ship.name} horizontally (h) or vertically (v)? ").lower()
 
-        if place_ship(player_board, ship, (ship_row, ship_col), ship_orient):
+        if place_ship(board, ship, (ship_row, ship_col), ship_orient):
             print(f"{ship.name} placed successfully!")
             print("\n")
-            print_board(player_board)
+            print_board(board)
             break
         else:
             print(f"Invalid placement for {ship.name}. Try again.")
+
+def place_CPU_ships_at_random(board, ship):
+    ship_placed = False
+
+    while not ship_placed:
+        start_row = random.randint(0, len(board) - 1)
+        start_col = random.randint(0, len(board[0]) - 1)
+        orientation = random.choice(['h', 'v'])
+
+        if place_ship(board, ship, (start_row + 1, start_col + 1), orientation):
+            ship_placed = True
 
 # the game loop starts here
 
@@ -103,6 +111,10 @@ print("\n")
 
 print_board(player_board)
 
-prompt_user_to_place_ship(player_big_ship)
-prompt_user_to_place_ship(player_med_ship)
-prompt_user_to_place_ship(player_small_ship)
+place_CPU_ships_at_random(CPU_board, CPU_big_ship)
+place_CPU_ships_at_random(CPU_board, CPU_med_ship)
+place_CPU_ships_at_random(CPU_board, CPU_small_ship)
+
+prompt_user_to_place_ship(player_board, player_big_ship)
+prompt_user_to_place_ship(player_board, player_med_ship)
+prompt_user_to_place_ship(player_board, player_small_ship)
