@@ -135,18 +135,25 @@ def prompt_player_guess(hidden_board, guess_board, boardsize):
         guess_board[guess_row][guess_col] = 'O'
 
 cpu_hits_counter = 0
+cpu_previous_guesses = set()
 
 def CPU_guess(board):
     global cpu_hits_counter
+    global cpu_previous_guesses
 
-    guess_row = random.randint(0, len(board) - 1)
-    guess_col = random.randint(0, len(board[0]) - 1)
+    while True:
+        guess_row = random.randint(0, len(board) - 1)
+        guess_col = random.randint(0, len(board[0]) - 1)
+
+        if (guess_row, guess_col) not in cpu_previous_guesses:
+            cpu_previous_guesses.add((guess_row, guess_col))
+            break
 
     print(f"CPU guesses... Row: {guess_row + 1}, Column: {guess_col + 1}")
     if board[guess_row][guess_col] == 'S':
         print("CPU hit your ship!")
         cpu_hits_counter += 1
-        board[guess_row][guess_col] == 'X'
+        board[guess_row][guess_col] = 'X'
     else:
         print("CPU missed!")
 
