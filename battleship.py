@@ -102,6 +102,34 @@ def place_CPU_ships_at_random(board, ship):
         if place_ship(board, ship, (start_row + 1, start_col + 1), orientation):
             ship_placed = True
 
+def print_both_boards(CPU_hidden, player_open):
+    print()
+    print("CPU BOARD")
+    print_board(CPU_hidden)
+    print()
+    print("PLAYER BOARD")
+    print_board(player_open)
+    print()
+
+def prompt_player_guess(hidden_board, guess_board, boardsize):
+    print("What will be your first move?")
+
+    while True:
+        guess_row = int(input(f"Enter the row (1 to {boardsize}): ")) - 1
+        guess_col = int(input(f"Enter the column (1 to {boardsize}): ")) - 1
+
+        if 0 <= guess_row < boardsize and 0 <= guess_col < boardsize:
+            break
+        else:
+            print(f"Invalid guess. Please enter numbers between 1 and {boardsize}.")
+    
+    if hidden_board[guess_row][guess_col] == 'S':
+        print("You hit a ship!")
+        guess_board[guess_row][guess_col] = 'X'
+    else:
+        print("Sploosh! In the water...")
+        guess_board[guess_row][guess_col] = 'O'
+
 # the game loop starts here
 
 print("\n")
@@ -127,11 +155,6 @@ prompt_user_to_place_ship(player_board, player_med_ship)
 prompt_user_to_place_ship(player_board, player_small_ship)
 
 print("\nWe're ready to play!")
-print()
-print("CPU BOARD")
-print_board(guess_board)
-print()
-print("PLAYER BOARD")
-print_board(player_board)
-print()
-print("What will be your first move?")
+print_both_boards(guess_board, player_board)
+prompt_player_guess(CPU_board, guess_board, len(CPU_board[0]))
+print_both_boards(guess_board, player_board)
