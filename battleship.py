@@ -115,7 +115,7 @@ player_hits_counter = 0
 
 def prompt_player_guess(hidden_board, guess_board, boardsize):
     global player_hits_counter
-    print("What will be your first move?")
+    print("What will be your move?")
 
     while True:
         guess_row = int(input(f"Enter the row (1 to {boardsize}): ")) - 1
