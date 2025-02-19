@@ -194,6 +194,8 @@ def play_to_win():
 
     winner = ""
 
+    print_both_boards(guess_board, player_board)
+
     if player_hits_counter == player_hits_to_win:
         winner = "Player has won!"
     else:
