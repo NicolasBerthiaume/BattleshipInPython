@@ -4,7 +4,13 @@ def create_grid(gridsize):
     return [['~' for _ in range(gridsize)] for _ in range(gridsize)]
 
 def print_board(board):
-    for row in reversed(board):
+    print("   ", end="")
+    for col in range(1, len(board[0]) + 1):
+        print(col, end=" ")
+    print()
+    
+    for row_num, row in enumerate(board, start = 1):
+        print(f"{row_num:2} ", end="")
         print(' '.join(row))
 
 class Ship():
@@ -118,3 +124,6 @@ place_CPU_ships_at_random(CPU_board, CPU_small_ship)
 prompt_user_to_place_ship(player_board, player_big_ship)
 prompt_user_to_place_ship(player_board, player_med_ship)
 prompt_user_to_place_ship(player_board, player_small_ship)
+
+print("\nWe're ready to play!")
+print("What will be your first move?")
