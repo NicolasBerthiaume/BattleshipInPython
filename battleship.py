@@ -111,7 +111,10 @@ def print_both_boards(CPU_hidden, player_open):
     print_board(player_open)
     print()
 
+player_hits_counter = 0
+
 def prompt_player_guess(hidden_board, guess_board, boardsize):
+    global player_hits_counter
     print("What will be your first move?")
 
     while True:
@@ -125,10 +128,27 @@ def prompt_player_guess(hidden_board, guess_board, boardsize):
     
     if hidden_board[guess_row][guess_col] == 'S':
         print("You hit a ship!")
+        player_hits_counter += 1
         guess_board[guess_row][guess_col] = 'X'
     else:
         print("Sploosh! In the water...")
         guess_board[guess_row][guess_col] = 'O'
+
+cpu_hits_counter = 0
+
+def CPU_guess(board):
+    global cpu_hits_counter
+
+    guess_row = random.randint(0, len(board) - 1)
+    guess_col = random.randint(0, len(board[0]) - 1)
+
+    print(f"CPU guesses... Row: {guess_row + 1}, Column: {guess_col + 1}")
+    if board[guess_row][guess_col] == 'S':
+        print("CPU hit your ship!")
+        cpu_hits_counter += 1
+        board[guess_row][guess_col] == 'X'
+    else:
+        print("CPU missed!")
 
 # the game loop starts here
 
@@ -155,6 +175,24 @@ prompt_user_to_place_ship(player_board, player_med_ship)
 prompt_user_to_place_ship(player_board, player_small_ship)
 
 print("\nWe're ready to play!")
-print_both_boards(guess_board, player_board)
-prompt_player_guess(CPU_board, guess_board, len(CPU_board[0]))
-print_both_boards(guess_board, player_board)
+
+player_hits_to_win = player_big_ship.size + player_med_ship.size + player_small_ship.size
+CPU_hits_to_win = CPU_big_ship.size + CPU_med_ship.size + CPU_small_ship.size
+
+def play_to_win():
+    while player_hits_counter < player_hits_to_win and cpu_hits_counter < CPU_hits_to_win:
+        print_both_boards(guess_board, player_board)
+        prompt_player_guess(CPU_board, guess_board, len(CPU_board[0]))
+        CPU_guess(player_board)
+
+    winner = ""
+
+    if player_hits_counter == player_hits_to_win:
+        winner = "Player has won!"
+    else:
+        winner = "CPU has won!"
+    
+    return winner
+
+print(play_to_win())
+
