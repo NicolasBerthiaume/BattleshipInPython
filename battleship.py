@@ -9,8 +9,8 @@ def print_board(board):
         print(col, end=" ")
     print()
     
-    for row_num, row in enumerate(board, start = 1):
-        print(f"{row_num:2} ", end="")
+    for row_num, row in enumerate(reversed(board), start = 1):
+        print(f"{len(board) - row_num + 1:2} ", end="")
         print(' '.join(row))
 
 class Ship():
@@ -110,6 +110,7 @@ print("\n")
 
 CPU_board = create_grid(prompt_user_to_select_board_size())
 player_board = create_grid(len(CPU_board[0]))
+guess_board = create_grid(len(CPU_board[0]))
 
 print("\n")
 print("Here is your board:")
@@ -126,4 +127,11 @@ prompt_user_to_place_ship(player_board, player_med_ship)
 prompt_user_to_place_ship(player_board, player_small_ship)
 
 print("\nWe're ready to play!")
+print()
+print("CPU BOARD")
+print_board(CPU_board)
+print()
+print("PLAYER BOARD")
+print_board(player_board)
+print()
 print("What will be your first move?")
